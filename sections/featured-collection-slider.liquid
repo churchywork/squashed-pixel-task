@@ -7,7 +7,7 @@
 
 <div class="featured-collection-slider" data-autoplay="{{ section.settings.autoplay | json }}">    
     {% if selected_collection and selected_collection.products.size > 0 %}
-        {% assign featured_products = selected_collection.products | where: 'tags', 'featured' %}
+        {% assign featured_products = selected_collection.products | where: 'tags', 'Featured' %}
         {% if featured_products.size > 0 %}
             {% for product in featured_products %}
                 <div class="slide">
