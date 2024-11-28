@@ -1,0 +1,61 @@
+<div class="featured-collection-slider">
+    {% assign featured_collection = collections['featured'] %}
+    {% if featured_collection and featured_collection.products.size > 0 %}
+        {% for product in featured_collection.products %}
+            <div class="slide">
+                <div class="product-card">
+                    <!-- Image -->
+                    <a href="{{ product.url }}" class="image-container slide__image-link">
+                        <img 
+                            src="{{ product.featured_image | image_url: 'medium' }}" 
+                            alt="{{ product.title }}" 
+                            width="{{ product.featured_image.width }}" 
+                            height="{{ product.featured_image.height }}" 
+                            class="image-container__img">
+                    </a>
+
+                    <!-- Title -->
+                    <h3 class="slide__title">{{ product.title }}</h3>
+
+                    <!-- Description -->
+                    <div class="slide__description">
+                        {{ product.description | truncate: 100 }}
+                    </div>
+
+                    <!-- Flavor -->
+                    {% if product.metafields.custom.flavour %}
+                        <p class="slide__flavour">Flavour: {{ product.metafields.custom.flavour }}</p>
+                    {% endif %}
+
+                    <!-- Add to Cart Button -->
+                    <form method="post" action="/cart/add" class="slide__add-to-cart">
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                        <div class="slide__add-to-cart-btn">Add to Cart</div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No products found in the collection.</p>
+    {% endif %}
+</div>
+
+{% schema %}
+
+{
+    "name": "Feat Collection Slider",
+    "settings": [
+        {
+        "type": "collection",
+        "id": "collection",
+        "label": "Collection"
+        },
+        {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay slider"
+        }
+    ]
+}
+
+{% endschema %}
