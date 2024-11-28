@@ -5,55 +5,42 @@
     <a href="{{ selected_collection.url }}" class="collection-header__link">View all</a>
 </div>
 
-<div class="featured-collection-slider" data-autoplay="{{ section.settings.autoplay | json }}">    
+<div class="featured-collection-slider">
     {% if selected_collection and selected_collection.products.size > 0 %}
-        {% assign featured_products = "" %}
         {% for product in selected_collection.products %}
-            {% if product.tags contains "Featured" %}
-                {% assign featured_products = featured_products | append: product | append: ',' %}
-            {% endif %}
-        {% endfor %}
+            <div class="slide">
+                <div class="product-card">
+                    <!-- Image -->
+                    <a href="{{ product.url }}" class="image-container slide__image-link">
+                        <img 
+                            src="{{ product.featured_image | img_url: 'medium' }}" 
+                            alt="{{ product.title }}" 
+                            width="{{ product.featured_image.width }}" 
+                            height="{{ product.featured_image.height }}" 
+                            class="image-container__img">
+                    </a>
 
-        {% assign featured_products = featured_products | split: ',' %}
+                    <!-- Title -->
+                    <h3 class="slide__title">{{ product.title }}</h3>
 
-        {% if featured_products.size > 0 %}
-            {% for product in featured_products %}
-                <div class="slide">
-                    <div class="product-card">
-                        <!-- Image -->
-                        <a href="{{ product.url }}" class="image-container slide__image-link">
-                            <img 
-                                src="{{ product.featured_image | img_url: 'large' }}" 
-                                alt="{{ product.title }}" 
-                                width="{{ product.featured_image.width }}" 
-                                height="{{ product.featured_image.height }}" 
-                                class="image-container__img">
-                        </a>
-
-                        <!-- Title -->
-                        <h3 class="slide__title">{{ product.title }}</h3>
-
-                        <!-- Description -->
-                        <div class="slide__description">
-                            {{ product.description | truncate: 100 }}
-                        </div>
-
-                        <!-- Flavor -->
-                        {% if product.metafields.custom.flavour %}
-                            <p class="slide__flavour">Flavour: {{ product.metafields.custom.flavour }}</p>
-                        {% endif %}
-
-                        <!-- Add to Cart Button -->
-                        <form method="post" action="/cart/add" class="slide__add-to-cart">
-                            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                            <div class="slide__add-to-cart-btn">Add to Cart</div>
-                        </form>
+                    <!-- Description -->
+                    <div class="slide__description">
+                        {{ product.description | truncate: 100 }}
                     </div>
+
+                    <!-- Flavor -->
+                    {% if product.metafields.custom.flavour %}
+                        <p class="slide__flavour">Flavour: {{ product.metafields.custom.flavour }}</p>
+                    {% endif %}
+
+                    <!-- Add to Cart Button -->
+                    <form method="post" action="/cart/add" class="slide__add-to-cart">
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                        <div class="slide__add-to-cart-btn">Add to Cart</div>
+                    </form>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>No featured products found in the selected collection.</p>
-        {% endif %}
+            </div>
+        {% endfor %}
     {% else %}
         <p>No products found in the selected collection.</p>
     {% endif %}
