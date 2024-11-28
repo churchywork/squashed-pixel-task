@@ -4,9 +4,8 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 33px;
+    margin:auto 15px;
 }
-
-
 
 .collection-header__title {
     font-family: 'Roboto', sans-serif;
@@ -31,13 +30,15 @@
 
 @media (max-width: 768px) {
     .collection-header {
-        display: block; /* Change flex to block */
+        display: block;
     }
 
     .collection-header__title {
         font-size: 32px;
         line-height: 38px; 
         padding-bottom:8px;
+        margin: 0;
+        text-align: left;
     }
 
     .collection-header__link {
