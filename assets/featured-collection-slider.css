@@ -6,6 +6,8 @@
     padding-bottom: 33px;
 }
 
+
+
 .collection-header__title {
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -27,11 +29,27 @@
     color: #434343;
 }
 
+@media (max-width: 768px) {
+    .collection-header {
+        display: block; /* Change flex to block */
+    }
+
+    .collection-header__title {
+        font-size: 32px;
+        line-height: 38px; 
+        padding-bottom:8px;
+    }
+
+    .collection-header__link {
+        font-size: 14px;
+    }
+}
+
 /* Product Card */
 .product-card {
     background: #fff;
     border-radius: 20px;
-    padding: 18px 14px;
+    padding: 14px 18px;
     margin:15px 10px;
     overflow: hidden;
     position: relative; 
