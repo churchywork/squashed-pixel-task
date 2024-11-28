@@ -3595,3 +3595,42 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/*Container classes*/
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.content-spacing{
+  padding-top:150px;
+  padding-bottom:150px;
+}
+
+@media (min-width: 576px) {
+  .container {
+      max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+      max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+      max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+      max-width: 1280px;
+  }
+}
