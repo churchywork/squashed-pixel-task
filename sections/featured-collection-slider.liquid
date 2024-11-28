@@ -1,61 +1,72 @@
-<div class="featured-collection-slider">
-    {% assign featured_collection = collections['featured'] %}
-    {% if featured_collection and featured_collection.products.size > 0 %}
-        {% for product in featured_collection.products %}
-            <div class="slide">
-                <div class="product-card">
-                    <!-- Image -->
-                    <a href="{{ product.url }}" class="image-container slide__image-link">
-                        <img 
-                            src="{{ product.featured_image | img_url: 'large' }}" 
-                            alt="{{ product.title }}" 
-                            width="{{ product.featured_image.width }}" 
-                            height="{{ product.featured_image.height }}" 
-                            class="image-container__img">
-                    </a>
+{% assign selected_collection = collections[section.settings.collection] %}
 
-                    <!-- Title -->
-                    <h3 class="slide__title">{{ product.title }}</h3>
+<div class="collection-header">
+    <h1 class="collection-header__title">{{ selected_collection.title }}</h1>
+    <a href="{{ selected_collection.url }}" class="collection-header__link">View all</a>
+</div>
 
-                    <!-- Description -->
-                    <div class="slide__description">
-                        {{ product.description | truncate: 100 }}
+<div class="featured-collection-slider">    
+    {% if selected_collection and selected_collection.products.size > 0 %}
+        {% assign featured_products = selected_collection.products | where: 'tags', 'featured' %}
+        {% if featured_products.size > 0 %}
+            {% for product in featured_products %}
+                <div class="slide">
+                    <div class="product-card">
+                        <!-- Image -->
+                        <a href="{{ product.url }}" class="image-container slide__image-link">
+                            <img 
+                                src="{{ product.featured_image | img_url: 'large' }}" 
+                                alt="{{ product.title }}" 
+                                width="{{ product.featured_image.width }}" 
+                                height="{{ product.featured_image.height }}" 
+                                class="image-container__img">
+                        </a>
+
+                        <!-- Title -->
+                        <h3 class="slide__title">{{ product.title }}</h3>
+
+                        <!-- Description -->
+                        <div class="slide__description">
+                            {{ product.description | truncate: 100 }}
+                        </div>
+
+                        <!-- Flavor -->
+                        {% if product.metafields.custom.flavour %}
+                            <p class="slide__flavour">Flavour: {{ product.metafields.custom.flavour }}</p>
+                        {% endif %}
+
+                        <!-- Add to Cart Button -->
+                        <form method="post" action="/cart/add" class="slide__add-to-cart">
+                            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                            <div class="slide__add-to-cart-btn">Add to Cart</div>
+                        </form>
                     </div>
-
-                    <!-- Flavor -->
-                    {% if product.metafields.custom.flavour %}
-                        <p class="slide__flavour">Flavour: {{ product.metafields.custom.flavour }}</p>
-                    {% endif %}
-
-                    <!-- Add to Cart Button -->
-                    <form method="post" action="/cart/add" class="slide__add-to-cart">
-                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                        <div class="slide__add-to-cart-btn">Add to Cart</div>
-                    </form>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>No featured products found in the selected collection.</p>
+        {% endif %}
     {% else %}
-        <p>No products found in the collection.</p>
+        <p>No products found in the selected collection.</p>
     {% endif %}
 </div>
 
 {% schema %}
-
 {
     "name": "Feat Collection Slider",
     "settings": [
         {
-        "type": "collection",
-        "id": "collection",
-        "label": "Collection"
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection",
+            "default": ""
         },
         {
-        "type": "checkbox",
-        "id": "autoplay",
-        "label": "Autoplay slider"
+            "type": "checkbox",
+            "id": "autoplay",
+            "label": "Autoplay slider",
+            "default": false
         }
     ]
 }
-
 {% endschema %}
