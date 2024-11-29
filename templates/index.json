@@ -13,7 +13,7 @@
       "type": "featured-collection-slider",
       "settings": {
         "collection": "featured",
-        "autoplay": false
+        "autoplay": true
       }
     }
   },
