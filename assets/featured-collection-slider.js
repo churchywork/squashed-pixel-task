@@ -3,7 +3,8 @@ $(document).ready(function () {
 
   $('.featured-collection-slider').slick({
       autoplay: autoplaySetting,
-      autoplaySpeed: 3000,
+      autoplaySpeed: 2000,
+      infinite: true,
       dots: true,
       arrows: false,
       slidesToShow: 4,
