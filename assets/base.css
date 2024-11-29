@@ -3635,3 +3635,10 @@ details-disclosure > details {
       max-width: 1280px;
   }
 }
+
+@media (max-width: 992px) {
+  .content-spacing{
+    padding-top:100px;
+    padding-bottom:150px;
+  }
+}
